@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Create Your Pizza{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h2>Create Your Pizza</h2>
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      {{ form.size.label_tag }}<br>
+      {{ form.size }}
+    </div>
+    <div class="form-group">
+      {{ form.crust.label_tag }}<br>
+      {{ form.crust }}
+    </div>
+    <div class="form-group">
+      {{ form.sauce.label_tag }}<br>
+      {{ form.sauce }}
+    </div>
+    <div class="form-group">
+      {{ form.cheese.label_tag }}<br>
+      {{ form.cheese }}
+    </div>
+    <div class="form-group">
+      <label>Select Toppings:</label>
+      {{ form.toppings }}
+    </div>
+    <button type="submit" class="btn btn-primary">Next</button>
+  </form>
+</div>
+{% endblock %}

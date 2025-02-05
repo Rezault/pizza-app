@@ -5,6 +5,8 @@
 {% block content %}
     {% if user.is_authenticated %}
     <h2>Welcome, {{ user.username }}!</h2>
+    <h3>Previous Orders</h3>
+    <a href="{% url 'create_pizza' %}">Create a Pizza</a>
     {% else %}
     <p>Please log in.</p>
     {% endif %}
