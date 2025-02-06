@@ -7,19 +7,16 @@ from .models import Pizza, Cart, CartItem, OrderItem, Order
 
 # Create your views here.
 def index(request):
+    if request.user.is_authenticated:
+        user = request.user
+        orders = user.orders.all()
+        return render(request, "index.html", {"user": user, "orders": orders})
     return render(request, "index.html")
-
-
-@login_required
-def profile(request):
-    user = request.user
-    orders = user.orders.all()
-    return render(request, "profile.html", {"user": user, "orders": orders})
 
 
 def signup(request):
     if request.user.is_authenticated:
-        return redirect("profile")
+        return redirect("/")
 
     if request.method == "POST":
         form = UserCreationForm(request.POST)
@@ -106,10 +103,10 @@ def order_confirmation(request, id):
     try:
         order = Order.objects.get(id=id)
     except Order.DoesNotExist:
-        return redirect("profile")
+        return redirect("/")
     
     if order.user != request.user:
-        return redirect("profile")
+        return redirect("/")
 
     order_items = order.order_items.all()
     print(order_items)

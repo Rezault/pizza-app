@@ -29,7 +29,7 @@ ALLOWED_HOSTS = []
 
 # Change the default django login urls
 LOGIN_URL = "/login/"
-LOGIN_REDIRECT_URL = "/profile"
+LOGIN_REDIRECT_URL = "/"
 #LOGOUT_REDIRECT_URL = '/'
 
 
@@ -124,14 +124,13 @@ USE_TZ = True
 import os
 STATIC_URL = '/static/'
 
-# Specify where to collect static files (only for production)
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
 # Allow Django to find static files in development
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
+    BASE_DIR / "static", 
 ]
 
+# Specify where to collect static files (only for production)
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

@@ -16,49 +16,56 @@
     </head>
 
     <body>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="/">Raz's Pizza</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" 
-                aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+        <nav class="navbar navbar-expand-lg bg-danger navbar-dark shadow-sm">
+            <div class="container">
+                <!-- 🍕 Brand Name -->
+                <a class="navbar-brand fw-bold text-white" href="/">Raz's Pizza 🍕</a>
+                
+                <!-- 📱 Mobile Toggle Button -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                    aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
                 </button>
-            
+        
+                <!-- 🌍 Navbar Links -->
                 <div class="collapse navbar-collapse" id="navbarContent">
-                    <ul class="navbar-nav mr-auto">
+                    <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="/">Home</a>
+                            <a class="nav-link text-white fw-bold" href="/">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+                            <a class="nav-link text-white fw-bold" href="{% url 'create_pizza' %}">Create Pizza</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'create_pizza' %}">Create Pizza</a>
-                        </li>
+        
                         {% if user.is_authenticated %}
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'view_cart' %}">Cart</a>
+                                <a class="nav-link text-white fw-bold" href="{% url 'view_cart' %}">🛒 Cart</a>
                             </li>
-                            <form id="logout-form" action="{% url 'logout' %}" method="post">
-                                <li class="nav-item">
+                        {% endif %}
+                    </ul>
+        
+                    <!-- 🔐 Auth Buttons (Right-Aligned) -->
+                    <ul class="navbar-nav ms-auto">
+                        {% if user.is_authenticated %}
+                            <li class="nav-item">
+                                <form id="logout-form" action="{% url 'logout' %}" method="post">
                                     {% csrf_token %}
-                                    <button type="submit" class="btn btn-link nav-link">
-                                        Logout
-                                    </button>
-                                </li>
-                            </form>
+                                    <button type="submit" class="btn btn-outline-light fw-bold">Logout</button>
+                                </form>
+                            </li>
                         {% else %}
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'login' %}">Login</a>
+                                <a class="nav-link btn btn-outline-light fw-bold me-2" href="{% url 'login' %}">Login</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
+                                <a class="nav-link btn btn-warning text-dark fw-bold" href="{% url 'signup' %}">Sign Up</a>
                             </li>
                         {% endif %}
                     </ul>
                 </div>
             </div>
         </nav>
+        
 
         {% block content %}
         {% endblock %}
