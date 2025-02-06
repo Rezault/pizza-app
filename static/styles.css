@@ -19,8 +19,6 @@ body {
 }
 
 .navbar a:hover {
-    color: #F9A825;
-    /* Warm Gold */
     text-decoration: underline;
 }
 
@@ -32,17 +30,10 @@ body {
 }
 
 .accordion-button {
-    background-color: #F9A825;
-    /* Warm Gold */
-    color: #333 !important;
-    /* Dark text */
+    background-color: #D32F2F !important;
+    color: white !important;
     font-weight: 600;
     border-radius: 8px;
-}
-
-.accordion-button:hover {
-    background-color: #E68A00;
-    /* Slightly darker on hover */
 }
 
 .create-pizza {
@@ -57,7 +48,186 @@ body {
     transition: 0.3s;
 }
 
-.create-pizza:hover {
-    background-color: #B71C1C;
-    /* Darker Red */
+/* 🔄 Fade-in effect for page load */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 📦 Slide-in effect for sections */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* 🛒 Expand animation for dropdowns */
+@keyframes dropdownFade {
+    from {
+        opacity: 0;
+        transform: scaleY(0);
+    }
+
+    to {
+        opacity: 1;
+        transform: scaleY(1);
+    }
+}
+
+/* ✅ Apply fade-in globally to all pages */
+body {
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+/* 📦 Apply slide-in to all cards and sections */
+.card,
+.accordion {
+    animation: slideIn 0.7s ease-in-out;
+}
+
+/* 🛍 Smooth Dropdown Menus */
+.navbar .dropdown-menu {
+    display: block;
+    opacity: 0;
+    transform: scaleY(0);
+    transition: all 0.3s ease-in-out;
+}
+
+.navbar .dropdown-menu.show {
+    opacity: 1;
+    transform: scaleY(1);
+}
+
+/* 🔥 Button Hover Effects */
+.btn {
+    transition: all 0.3s ease-in-out;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+/* 📋 Smooth Input Focus Effects */
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: #D32F2F !important;
+    box-shadow: 0 0 5px rgba(211, 47, 47, 0.5);
+    transition: all 0.3s ease-in-out;
+}
+
+/* 🛒 Accordion Transitions */
+.accordion-button {
+    transition: all 0.3s ease-in-out;
+}
+
+.accordion-button:hover {
+    background-color: #D32F2F !important;
+    color: white !important;
+}
+
+/* 🔄 Faster & Smoother Fade-in for Page Load */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 📦 Slide-in with Less Movement */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* 🛒 Dropdown Expand Animation (Faster & More Snappy) */
+@keyframes dropdownFade {
+    from {
+        opacity: 0;
+        transform: scaleY(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scaleY(1);
+    }
+}
+
+/* ✅ Apply fade-in globally to all pages (Now faster & more subtle) */
+body {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* 📦 Apply slide-in to all cards and sections (Faster & Less Dramatic) */
+.card,
+.accordion {
+    animation: slideIn 0.5s ease-out;
+}
+
+/* 🛍 Dropdown Menus Expand Instantly Without Feeling Laggy */
+.navbar .dropdown-menu {
+    display: block;
+    opacity: 0;
+    transform: scaleY(0.9);
+    transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+}
+
+.navbar .dropdown-menu.show {
+    opacity: 1;
+    transform: scaleY(1);
+}
+
+/* 🔥 Faster Button Hover Effects (Snappy & Responsive) */
+.btn {
+    transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+}
+
+.btn:hover {
+    transform: scale(1.03);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 📋 Input Focus Effects (Faster & More Responsive) */
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: #D32F2F !important;
+    box-shadow: 0 0 4px rgba(211, 47, 47, 0.5);
+    transition: box-shadow 0.2s ease-out;
+}
+
+/* 🛒 Accordion Button Smoothness */
+.accordion-button {
+    transition: background-color 0.2s ease-out, transform 0.2s ease-out;
+}
+
+.accordion-button:hover {
+    background-color: #D32F2F !important;
+    color: white !important;
+    transform: scale(1.02);
 }

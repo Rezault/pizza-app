@@ -16,18 +16,13 @@
     </head>
 
     <body>
+        <!-- navbar -->
         <nav class="navbar navbar-expand-lg bg-danger navbar-dark shadow-sm">
             <div class="container">
-                <!-- 🍕 Brand Name -->
+                <!-- raz's pizza title -->
                 <a class="navbar-brand fw-bold text-white" href="/">Raz's Pizza 🍕</a>
-                
-                <!-- 📱 Mobile Toggle Button -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
-                    aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
         
-                <!-- 🌍 Navbar Links -->
+                <!-- buttons -->
                 <div class="collapse navbar-collapse" id="navbarContent">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
@@ -44,7 +39,7 @@
                         {% endif %}
                     </ul>
         
-                    <!-- 🔐 Auth Buttons (Right-Aligned) -->
+                    <!-- auth buttons aligned to the right -->
                     <ul class="navbar-nav ms-auto">
                         {% if user.is_authenticated %}
                             <li class="nav-item">

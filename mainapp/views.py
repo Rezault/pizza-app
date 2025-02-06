@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import PizzaForm, CheckoutForm
-from .models import Pizza, Cart, CartItem, OrderItem, Order
+from .models import Cart, CartItem, OrderItem, Order
 
 # Create your views here.
 def index(request):
@@ -40,11 +40,6 @@ def create_pizza(request):
             # check if pizza already exists in cart (duplicate) then just increase the quantity
             new_item = CartItem.objects.create(cart=cart, pizza=pizza)
             new_item.save()
-            """cart_item, item_created = CartItem.objects.get_or_create(cart=cart, pizza=pizza, defaults={"quantity": 1})
-            if not item_created:
-                cart_item.quantity += 1
-            
-            cart_item.save()"""
 
             return redirect("view_cart")
     else:

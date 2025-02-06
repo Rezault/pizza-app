@@ -2,79 +2,95 @@
 
 {% block title %}Checkout{% endblock %}
 
+{% load widget_tweaks %}
+
 {% block content %}
 <div class="container mt-4">
-    <h2>Checkout</h2>
+    <h2 class="mb-4 text-danger fw-bold">💵 Checkout</h2>
     <div class="row">
-        <!-- Checkout Form -->
+        <!-- 📋 Checkout Form -->
         <div class="col-md-8">
-            <form method="post">
-                {% csrf_token %}
-                <div class="form-group">
-                    {{ form.customer_name.label_tag }}
-                    {{ form.customer_name }}
-                    {% if form.customer_name.errors %}
-                        <div class="text-danger">{{ form.customer_name.errors }}</div>
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form.address.label_tag }}
-                    {{ form.address }}
-                    {% if form.address.errors %}
-                        <div class="text-danger">{{ form.address.errors }}</div>
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form.card_number.label_tag }}
-                    {{ form.card_number }}
-                    {% if form.card_number.errors %}
-                        <div class="text-danger">{{ form.card_number.errors }}</div>
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col">
-                            {{ form.card_expiry_month.label_tag }}
-                            {{ form.card_expiry_month }}
-                            {% if form.card_expiry_month.errors %}
-                                <div class="text-danger">{{ form.card_expiry_month.errors }}</div>
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title mb-4 fw-bold text-dark">📄 Billing Details</h4>
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            {{ form.customer_name.label_tag }}
+                            {{ form.customer_name|add_class:"form-control" }}
+                            {% if form.customer_name.errors %}
+                                <div class="text-danger">{{ form.customer_name.errors }}</div>
                             {% endif %}
                         </div>
-                        <div class="col">
-                            {{ form.card_expiry_year.label_tag }}
-                            {{ form.card_expiry_year }}
-                            {% if form.card_expiry_year.errors %}
-                                <div class="text-danger">{{ form.card_expiry_year.errors }}</div>
+
+                        <div class="mb-3">
+                            {{ form.address.label_tag }}
+                            {{ form.address|add_class:"form-control" }}
+                            {% if form.address.errors %}
+                                <div class="text-danger">{{ form.address.errors }}</div>
                             {% endif %}
                         </div>
-                        <div class="col">
-                            {{ form.card_cvv.label_tag }}
-                            {{ form.card_cvv }}
-                            {% if form.card_cvv.errors %}
-                                <div class="text-danger">{{ form.card_cvv.errors }}</div>
+
+                        <div class="mb-3">
+                            {{ form.card_number.label_tag }}
+                            {{ form.card_number|add_class:"form-control" }}
+                            {% if form.card_number.errors %}
+                                <div class="text-danger">{{ form.card_number.errors }}</div>
                             {% endif %}
                         </div>
-                    </div>
+
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                {{ form.card_expiry_month.label_tag }}
+                                {{ form.card_expiry_month|add_class:"form-control" }}
+                                {% if form.card_expiry_month.errors %}
+                                    <div class="text-danger">{{ form.card_expiry_month.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                {{ form.card_expiry_year.label_tag }}
+                                {{ form.card_expiry_year|add_class:"form-control" }}
+                                {% if form.card_expiry_year.errors %}
+                                    <div class="text-danger">{{ form.card_expiry_year.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                {{ form.card_cvv.label_tag }}
+                                {{ form.card_cvv|add_class:"form-control" }}
+                                {% if form.card_cvv.errors %}
+                                    <div class="text-danger">{{ form.card_cvv.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- ✅ Place Order Button -->
+                        <button type="submit" class="btn btn-success btn-lg w-100 fw-bold mt-3">
+                            ✅ Place Order
+                        </button>
+                    </form>
                 </div>
-                <button type="submit" class="btn btn-success">Place Order</button>
-            </form>
+            </div>
         </div>
 
-        <!-- Cart Summary -->
+        <!-- 🛒 Cart Summary & Order Details -->
         <div class="col-md-4">
-            <h4>Your Cart</h4>
-            {% if cart.items.all %}
-                <ul class="list-group">
-                    {% for item in cart.items.all %}
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        {{ item.pizza }}
-                        <!--<span class="badge badge-primary badge-pill">{{ item.quantity }}</span>-->
-                    </li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <p>Your cart is empty.</p>
-            {% endif %}
+            <div class="card shadow-sm mb-3">
+                <div class="card-body">
+                    <h4 class="card-title fw-bold text-dark">🛒 Your Cart</h4>
+                    {% if cart.items.all %}
+                        <ul class="list-group">
+                            {% for item in cart.items.all %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                {{ item.pizza }}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p class="text-muted">Your cart is empty.</p>
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </div>
 </div>
