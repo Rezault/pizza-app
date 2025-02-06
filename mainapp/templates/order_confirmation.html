@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Thank you for your order!</h2>
+    <h5>Your order id: {{ order.id }}</h5>
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Pizza</th>
+            <th scope="col">Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in order_items %}
+          <tr>
+            <td>{{ item.pizza }}</td>
+            <td>
+              <ul class="list-unstyled mb-0">
+                <li><strong>Size:</strong> {{ item.pizza.size }}</li>
+                <li><strong>Crust:</strong> {{ item.pizza.crust }}</li>
+                <li><strong>Sauce:</strong> {{ item.pizza.sauce }}</li>
+                <li><strong>Cheese:</strong> {{ item.pizza.cheese }}</li>
+                <li><strong>Toppings:</strong>
+                  {% if item.pizza.toppings.all %}
+                    {% for topping in item.pizza.toppings.all %}
+                      {{ topping }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                  {% else %}
+                    None
+                  {% endif %}
+                </li>
+              </ul>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+</div>
+{% endblock %}
