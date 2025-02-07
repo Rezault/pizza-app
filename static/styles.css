@@ -1,14 +1,21 @@
+/* body */
 body {
     background-color: #FFF8E1;
-    /* Soft Beige */
     font-family: 'Poppins', sans-serif;
     color: #333;
-    /* Dark text for readability */
+    opacity: 1;
 }
 
+/* page container */
+.page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* navbar */
 .navbar {
     background-color: #D32F2F;
-    /* Deep Red */
     padding: 15px;
 }
 
@@ -22,6 +29,14 @@ body {
     text-decoration: underline;
 }
 
+/* footer */
+footer {
+    background-color: #D32F2F;
+    margin-top: auto;
+    /* Pushes footer to the bottom when not enough content */
+}
+
+/* accordion */
 .accordion-item {
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -34,12 +49,19 @@ body {
     color: white !important;
     font-weight: 600;
     border-radius: 8px;
+    transition: background-color 0.2s ease-out, transform 0.2s ease-out;
 }
 
+.accordion-button:hover {
+    background-color: #D32F2F !important;
+    color: white !important;
+    transform: scale(1.02);
+}
+
+/* create pizza */
 .create-pizza {
     display: inline-block;
     background-color: #D32F2F;
-    /* Deep Red */
     color: white;
     padding: 10px 20px;
     border-radius: 8px;
@@ -48,171 +70,26 @@ body {
     transition: 0.3s;
 }
 
-/* 🔄 Fade-in effect for page load */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* page loader */
+#page-loader {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.3s ease-in-out;
 }
 
-/* 📦 Slide-in effect for sections */
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateX(-30px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-/* 🛒 Expand animation for dropdowns */
-@keyframes dropdownFade {
-    from {
-        opacity: 0;
-        transform: scaleY(0);
-    }
-
-    to {
-        opacity: 1;
-        transform: scaleY(1);
-    }
-}
-
-/* ✅ Apply fade-in globally to all pages */
-body {
-    animation: fadeIn 0.8s ease-in-out;
-}
-
-/* 📦 Apply slide-in to all cards and sections */
-.card,
-.accordion {
-    animation: slideIn 0.7s ease-in-out;
-}
-
-/* 🛍 Smooth Dropdown Menus */
-.navbar .dropdown-menu {
-    display: block;
+/* hide loader after page finishes loading */
+body.loaded #page-loader {
     opacity: 0;
-    transform: scaleY(0);
-    transition: all 0.3s ease-in-out;
+    pointer-events: none;
 }
 
-.navbar .dropdown-menu.show {
-    opacity: 1;
-    transform: scaleY(1);
-}
-
-/* 🔥 Button Hover Effects */
-.btn {
-    transition: all 0.3s ease-in-out;
-}
-
-.btn:hover {
-    transform: scale(1.05);
-}
-
-/* 📋 Smooth Input Focus Effects */
-input:focus,
-textarea:focus,
-select:focus {
-    border-color: #D32F2F !important;
-    box-shadow: 0 0 5px rgba(211, 47, 47, 0.5);
-    transition: all 0.3s ease-in-out;
-}
-
-/* 🛒 Accordion Transitions */
-.accordion-button {
-    transition: all 0.3s ease-in-out;
-}
-
-.accordion-button:hover {
-    background-color: #D32F2F !important;
-    color: white !important;
-}
-
-/* 🔄 Faster & Smoother Fade-in for Page Load */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-5px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* 📦 Slide-in with Less Movement */
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateX(-15px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-/* 🛒 Dropdown Expand Animation (Faster & More Snappy) */
-@keyframes dropdownFade {
-    from {
-        opacity: 0;
-        transform: scaleY(0.9);
-    }
-
-    to {
-        opacity: 1;
-        transform: scaleY(1);
-    }
-}
-
-/* ✅ Apply fade-in globally to all pages (Now faster & more subtle) */
-body {
-    animation: fadeIn 0.5s ease-out;
-}
-
-/* 📦 Apply slide-in to all cards and sections (Faster & Less Dramatic) */
-.card,
-.accordion {
-    animation: slideIn 0.5s ease-out;
-}
-
-/* 🛍 Dropdown Menus Expand Instantly Without Feeling Laggy */
-.navbar .dropdown-menu {
-    display: block;
-    opacity: 0;
-    transform: scaleY(0.9);
-    transition: opacity 0.2s ease-out, transform 0.2s ease-out;
-}
-
-.navbar .dropdown-menu.show {
-    opacity: 1;
-    transform: scaleY(1);
-}
-
-/* 🔥 Faster Button Hover Effects (Snappy & Responsive) */
-.btn {
-    transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
-}
-
-.btn:hover {
-    transform: scale(1.03);
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* 📋 Input Focus Effects (Faster & More Responsive) */
+/* input focuses */
 input:focus,
 textarea:focus,
 select:focus {
@@ -221,13 +98,12 @@ select:focus {
     transition: box-shadow 0.2s ease-out;
 }
 
-/* 🛒 Accordion Button Smoothness */
-.accordion-button {
-    transition: background-color 0.2s ease-out, transform 0.2s ease-out;
+/* buttons */
+.btn {
+    transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
 }
 
-.accordion-button:hover {
-    background-color: #D32F2F !important;
-    color: white !important;
-    transform: scale(1.02);
+.btn:hover {
+    transform: scale(1.03);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
 }

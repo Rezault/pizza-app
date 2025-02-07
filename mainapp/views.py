@@ -90,7 +90,11 @@ def checkout(request):
             return redirect("order_confirmation", id=order.id)
     else:
         form = CheckoutForm()
-    return render(request, "checkout.html", {"form": form, "cart": cart})
+    
+    if cart.items.all():
+        return render(request, "checkout.html", {"form": form, "cart": cart})
+    else:
+        return redirect("/")
 
 
 @login_required

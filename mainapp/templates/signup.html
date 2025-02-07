@@ -2,14 +2,52 @@
 
 {% block title %}Sign Up{% endblock %}
 
+{% load widget_tweaks %}
+
 {% block content %}
-<div class="container mt-5">
-  <h2>Create an Account</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-success">Sign Up</button>
-  </form>
-  <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 85vh;">
+    <div class="card shadow-sm p-4" style="max-width: 450px; width: 100%;">
+        <div class="card-body">
+            <h2 class="text-center text-success fw-bold mb-4">📝 Create an Account</h2>
+            
+            <form method="post">
+                {% csrf_token %}
+
+                <!-- username -->
+                <div class="mb-3">
+                    {{ form.username.label_tag }}
+                    {{ form.username|add_class:"form-control" }}
+                </div>
+
+                <!-- password -->
+                <div class="mb-3">
+                    {{ form.password1.label_tag }}
+                    {{ form.password1|add_class:"form-control" }}
+                    <small class="form-text text-muted">
+                        {{ form.password1.help_text }}
+                    </small>
+                </div>
+
+                <!-- confirm pass -->
+                <div class="mb-3">
+                    {{ form.password2.label_tag }}
+                    {{ form.password2|add_class:"form-control" }}
+                    <small class="form-text text-muted">
+                        {{ form.password2.help_text }}
+                    </small>
+                </div>
+
+                <!-- sign up -->
+                <button type="submit" class="btn btn-success w-100 fw-bold">
+                    ✅ Sign Up
+                </button>
+            </form>
+
+            <!-- login link -->
+            <p class="text-center mt-3">
+                Already have an account? <a href="{% url 'login' %}" class="text-success fw-bold">Login here</a>
+            </p>
+        </div>
+    </div>
 </div>
 {% endblock %}
