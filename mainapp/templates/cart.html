@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}Your Cart{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2 class="mb-4 text-danger fw-bold">🛒 Your Cart</h2>
+
+  {% if cart.items.all %}
+    <!-- cart -->
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <table class="table table-striped table-bordered align-middle">
+          <thead class="table-danger">
+            <tr>
+              <th scope="col">🍕 Pizza</th>
+              <th scope="col">📋 Details</th>
+              <th scope="col" class="text-center">⚙️ Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in cart.items.all %}
+            <tr>
+              <td class="fw-bold">{{ item.pizza }}</td>
+              <td>
+                <ul class="list-unstyled mb-0">
+                  <li><strong>Size:</strong> {{ item.pizza.size }}</li>
+                  <li><strong>Crust:</strong> {{ item.pizza.crust }}</li>
+                  <li><strong>Sauce:</strong> {{ item.pizza.sauce }}</li>
+                  <li><strong>Cheese:</strong> {{ item.pizza.cheese }}</li>
+                  <li><strong>Toppings:</strong> 
+                    {% if item.pizza.toppings.all %}
+                      {% for topping in item.pizza.toppings.all %}
+                        {{ topping }}{% if not forloop.last %}, {% endif %}
+                      {% endfor %}
+                    {% else %}
+                      None
+                    {% endif %}
+                  </li>
+                </ul>
+              </td>
+              <td class="text-center">
+                <form action="{% url 'remove_cart_item' item.id %}" method="post">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-sm btn-danger">
+                    ❌ Remove
+                  </button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <!-- count + buttons -->
+        <div class="mt-4 d-flex flex-column flex-md-row justify-content-between align-items-center">
+          <!-- item count -->
+          <p class="fw-bold text-muted mb-3 mb-md-0">
+            Total Items: <span class="text-danger">{{ cart.items.all|length }}</span>
+          </p>
+          
+          <!-- buttons -->
+          <div class="d-grid gap-2 d-md-flex">
+            <a href="{% url 'create_pizza' %}" class="btn btn-outline-danger btn-lg fw-bold">
+              ➕ Add Another Pizza
+            </a>
+            <a href="{% url 'checkout' %}" class="btn btn-success btn-lg fw-bold">
+              ✅ Proceed to Checkout
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  {% else %}
+    <!-- empty cart -->
+    <div class="alert alert-warning text-center mt-4" role="alert">
+      <h4 class="alert-heading">Your cart is empty! 😢</h4>
+      <p>Add a delicious pizza to your cart and satisfy your cravings!</p>
+      <a href="{% url 'create_pizza' %}" class="btn btn-danger fw-bold">🍕 Create a Pizza</a>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

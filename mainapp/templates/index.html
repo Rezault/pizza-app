@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+
+    {% if user.is_authenticated %}
+
+    <!-- welcome -->
+    <div class="card bg-light shadow-sm p-4 mb-4">
+        <!-- different message based on time -->
+        {% now "H" as current_hour %}
+        {% if current_hour|add:0 < 12 %}
+            <h2 class="text-danger fw-bold">🌅 Good Morning, {{ user.username }}!</h2>
+        {% elif current_hour|add:0 < 18 %}
+            <h2 class="text-danger fw-bold">🌞 Good Afternoon, {{ user.username }}!</h2>
+        {% else %}
+            <h2 class="text-danger fw-bold">🌙 Good Evening, {{ user.username }}!</h2>
+        {% endif %}
+
+        
+        <h5 class="text-muted">Looking for something delicious today? 😋</h5>
+        <a href="{% url 'create_pizza' %}" class="btn btn-danger mt-3">🍕 Create a Pizza</a>
+    </div>
+
+    <!-- previous orders -->
+    <div class="card p-4 shadow-sm">
+        <h3 class="text-dark fw-bold">📜 Your Previous Orders</h3>
+
+        {% if total_orders %}
+            <p class="text-muted">Total <strong>{{ total_orders }}</strong> orders.</p>
+        {% else %}
+            <p class="text-muted">No orders found.</p>
+        {% endif %}
+
+        <div class="accordion mt-3" id="orderAccordion">
+            {% for order_date, orders in grouped_orders %}
+            <div class="mb-3">
+                <h4 class="fw-bold text-danger">📅 {{ order_date|date:"F d, Y" }}</h4> 
+            </div>
+            
+            {% for order in orders %}
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading{{ order.id }}">
+                    <button class="accordion-button collapsed text-dark fw-bold" type="button" 
+                            data-bs-toggle="collapse" data-bs-target="#collapse{{ order.id }}" 
+                            aria-expanded="false" aria-controls="collapse{{ order.id }}">
+                        Order #{{ order.id }} - {{ order.order_date|date:"H:i" }} 🕒
+                    </button>
+                </h2>
+                <div id="collapse{{ order.id }}" class="accordion-collapse collapse" aria-labelledby="heading{{ order.id }}" data-bs-parent="#orderAccordion">
+                    <div class="accordion-body">
+                        <!-- details -->
+                        <div class="mb-3">
+                            <p><strong>👤 Customer Name:</strong> {{ order.customer_name }}</p>
+                            <p><strong>📍 Delivery Address:</strong> {{ order.address }}</p>
+                            <p><strong>🕒 Order Time:</strong> {{ order.order_date|date:"H:i" }}</p>
+                        </div>
+
+                        <!-- table for pizzas -->
+                        <table class="table table-hover table-bordered mt-3">
+                            <thead class="table-danger">
+                                <tr>
+                                    <th>🍕 Pizza</th>
+                                    <th>📜 Details</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in order.order_items.all %}
+                                <tr>
+                                    <td class="fw-bold">{{ item.pizza }}</td>
+                                    <td>
+                                        <ul class="list-unstyled mb-0">
+                                            <li><strong>Size:</strong> {{ item.pizza.size }}</li>
+                                            <li><strong>Crust:</strong> {{ item.pizza.crust }}</li>
+                                            <li><strong>Sauce:</strong> {{ item.pizza.sauce }}</li>
+                                            <li><strong>Cheese:</strong> {{ item.pizza.cheese }}</li>
+                                            <li><strong>Toppings:</strong>
+                                                {% if item.pizza.toppings.all %}
+                                                    {% for topping in item.pizza.toppings.all %}
+                                                        {{ topping }}{% if not forloop.last %}, {% endif %}
+                                                    {% endfor %}
+                                                {% else %}
+                                                    None
+                                                {% endif %}
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+
+    {% else %}
+
+    <!-- display login text and prompt -->
+    <div class="card text-center p-4 shadow-sm">
+        <h2 class="fw-bold text-danger">Welcome!</h2>
+        <p class="text-muted">Please log in to continue.</p>
+        <a href="{% url 'login' %}" class="btn btn-danger">🔑 Log in</a>
+    </div>
+
+    {% endif %}
+
+</div>
+{% endblock %}

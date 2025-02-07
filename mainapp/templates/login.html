@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 85vh;">
+    <div class="card shadow-sm p-4" style="max-width: 400px; width: 100%;">
+        <div class="card-body">
+            <h2 class="text-center text-danger fw-bold mb-4">
+                🔑 Login
+            </h2>
+            
+            <form method="post">
+                {% csrf_token %}
+
+                <!-- username -->
+                <div class="mb-3">
+                    {{ form.username.label_tag }}
+                    {{ form.username|add_class:"form-control" }}
+                </div>
+
+                <!-- password -->
+                <div class="mb-3">
+                    {{ form.password.label_tag }}
+                    {{ form.password|add_class:"form-control" }}
+                </div>
+
+                <!-- submit -->
+                <button type="submit" class="btn btn-danger w-100 fw-bold">
+                    🔓 Login
+                </button>
+            </form>
+
+            <!-- signup -->
+            <p class="text-center mt-3">
+                Don't have an account? <a href="{% url 'signup' %}" class="text-danger fw-bold">Sign up here</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

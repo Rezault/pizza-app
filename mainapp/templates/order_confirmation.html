@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}Order Confirmation{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <!-- confirmation -->
+    <div class="alert alert-success text-center fw-bold">
+        ✅ Thank you for your order! Your delicious pizzas are on their way! 🍕
+    </div>
+
+    <!-- summary -->
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h3 class="card-title text-danger fw-bold">🛍 Order Summary</h3>
+            <p class="fw-bold">Order ID: <span class="text-dark">{{ order.id }}</span></p>
+
+            <!-- items -->
+            <table class="table table-striped table-bordered mt-3">
+                <thead class="table-danger">
+                    <tr>
+                        <th scope="col">🍕 Pizza</th>
+                        <th scope="col">📋 Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in order_items %}
+                    <tr>
+                        <td class="fw-bold">{{ item.pizza }}</td>
+                        <td>
+                            <ul class="list-unstyled mb-0">
+                                <li><strong>Size:</strong> {{ item.pizza.size }}</li>
+                                <li><strong>Crust:</strong> {{ item.pizza.crust }}</li>
+                                <li><strong>Sauce:</strong> {{ item.pizza.sauce }}</li>
+                                <li><strong>Cheese:</strong> {{ item.pizza.cheese }}</li>
+                                <li><strong>Toppings:</strong> 
+                                    {% if item.pizza.toppings.all %}
+                                        {% for topping in item.pizza.toppings.all %}
+                                            {{ topping }}{% if not forloop.last %}, {% endif %}
+                                        {% endfor %}
+                                    {% else %}
+                                        None
+                                    {% endif %}
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- buttons -->
+    <div class="d-flex justify-content-between mt-4">
+        <a href="{% url 'index' %}" class="btn btn-outline-secondary btn-lg">🏠 Back to Home</a>
+        <a href="{% url 'create_pizza' %}" class="btn btn-danger btn-lg fw-bold">➕ Order Another Pizza</a>
+    </div>
+</div>
+{% endblock %}
