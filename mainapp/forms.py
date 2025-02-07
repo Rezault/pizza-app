@@ -1,13 +1,16 @@
 from django import forms
-from .models import Pizza, Order
+from .models import Pizza, Order, Topping
 
 class PizzaForm(forms.ModelForm):
+    toppings = forms.ModelMultipleChoiceField(
+        queryset=Topping.objects.all(),
+        widget=forms.CheckboxSelectMultiple(),
+        required=False
+    )
+
     class Meta:
         model = Pizza
         fields = ["size", "crust", "sauce", "cheese", "toppings"]
-        widgets = {
-            "toppings": forms.CheckboxSelectMultiple(),
-        }
 
 
 class CheckoutForm(forms.ModelForm):

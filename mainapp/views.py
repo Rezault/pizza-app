@@ -4,13 +4,23 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import PizzaForm, CheckoutForm
 from .models import Cart, CartItem, OrderItem, Order
+from datetime import datetime
+from collections import defaultdict
 
 # Create your views here.
 def index(request):
     if request.user.is_authenticated:
         user = request.user
-        orders = user.orders.all()
-        return render(request, "index.html", {"user": user, "orders": orders})
+        orders = Order.objects.filter(user=request.user).order_by('-order_date')
+        grouped_orders = defaultdict(list)
+
+        for order in orders:
+            order_date = order.order_date.date() # date without time
+            grouped_orders[order_date].append(order)
+
+        grouped_orders = sorted(grouped_orders.items(), key=lambda x: x[0], reverse=True)
+
+        return render(request, "index.html", {"user": user, "grouped_orders": grouped_orders, "total_orders": len(orders)})
     return render(request, "index.html")
 
 

@@ -28,20 +28,25 @@
     <div class="card p-4 shadow-sm">
         <h3 class="text-dark fw-bold">📜 Your Previous Orders</h3>
 
-        {% if orders %}
-            <p class="text-muted">Total <strong>{{ orders|length }}</strong> orders.</p>
+        {% if total_orders %}
+            <p class="text-muted">Total <strong>{{ total_orders }}</strong> orders.</p>
         {% else %}
             <p class="text-muted">No orders found.</p>
         {% endif %}
 
         <div class="accordion mt-3" id="orderAccordion">
+            {% for order_date, orders in grouped_orders %}
+            <div class="mb-3">
+                <h4 class="fw-bold text-danger">📅 {{ order_date|date:"F d, Y" }}</h4> 
+            </div>
+            
             {% for order in orders %}
             <div class="accordion-item">
                 <h2 class="accordion-header" id="heading{{ order.id }}">
                     <button class="accordion-button collapsed text-dark fw-bold" type="button" 
                             data-bs-toggle="collapse" data-bs-target="#collapse{{ order.id }}" 
                             aria-expanded="false" aria-controls="collapse{{ order.id }}">
-                        Order #{{ order.id }} - {{ order.order_date|date:"M d, Y H:i" }}
+                        Order #{{ order.id }} - {{ order.order_date|date:"H:i" }} 🕒
                     </button>
                 </h2>
                 <div id="collapse{{ order.id }}" class="accordion-collapse collapse" aria-labelledby="heading{{ order.id }}" data-bs-parent="#orderAccordion">
@@ -50,7 +55,7 @@
                         <div class="mb-3">
                             <p><strong>👤 Customer Name:</strong> {{ order.customer_name }}</p>
                             <p><strong>📍 Delivery Address:</strong> {{ order.address }}</p>
-                            <p><strong>🕒 Order Date:</strong> {{ order.order_date|date:"M d, Y H:i" }}</p>
+                            <p><strong>🕒 Order Time:</strong> {{ order.order_date|date:"H:i" }}</p>
                         </div>
 
                         <!-- table for pizzas -->
@@ -89,6 +94,7 @@
                     </div>
                 </div>
             </div>
+            {% endfor %}
             {% endfor %}
         </div>
     </div>
