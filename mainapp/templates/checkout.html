@@ -16,6 +16,7 @@
                     <form method="post">
                         {% csrf_token %}
                         
+                        <!-- customer name -->
                         <div class="mb-3">
                             {{ form.customer_name.label_tag }}
                             {{ form.customer_name|add_class:"form-control" }}
@@ -24,6 +25,7 @@
                             {% endif %}
                         </div>
 
+                        <!-- address -->
                         <div class="mb-3">
                             {{ form.address.label_tag }}
                             {{ form.address|add_class:"form-control" }}
@@ -32,6 +34,7 @@
                             {% endif %}
                         </div>
 
+                        <!-- card number -->
                         <div class="mb-3">
                             {{ form.card_number.label_tag }}
                             {{ form.card_number|add_class:"form-control" }}
@@ -40,6 +43,7 @@
                             {% endif %}
                         </div>
 
+                        <!-- expiry -->
                         <div class="row">
                             <div class="col-md-4 mb-3">
                                 {{ form.card_expiry_month.label_tag }}
@@ -94,4 +98,24 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const cardNumber = document.getElementById("id_card_number");
+        const expiryMonth = document.getElementById("id_card_expiry_month");
+        const expiryYear = document.getElementById("id_card_expiry_year");
+        const cardCVV = document.getElementById("id_card_cvv");
+
+        function enforceNumericInput(event) {
+            // using a bit of regex (\D matches non-digits)
+            event.target.value = event.target.value.replace(/\D/g, "");  // remove non-numeric characters
+        }
+
+        cardNumber.addEventListener("input", enforceNumericInput);
+        expiryMonth.addEventListener("input", enforceNumericInput);
+        expiryYear.addEventListener("input", enforceNumericInput);
+        cardCVV.addEventListener("input", enforceNumericInput);
+    });
+</script>
+
 {% endblock %}
