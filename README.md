@@ -1,4 +1,6 @@
 This is Raz's Pizza, a project for Full Stack Development.
+A YouTube video is found in "video.txt" in this directory, talking about the app and showing a live demonstration.
+
 In the main directory of this project is a file called "setup.py".
 Before running the server for the first time, run:
 
