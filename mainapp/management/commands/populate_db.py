@@ -35,4 +35,4 @@ class Command(BaseCommand):
         Topping.objects.get_or_create(name="Tuna")
         Topping.objects.get_or_create(name="Bacon")
         
-        self.stdout.write(self.style.SUCCESS("✅ Default pizza options added!"))
+        self.stdout.write(self.style.SUCCESS("Default pizza options added!"))
