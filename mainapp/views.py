@@ -47,7 +47,9 @@ def create_pizza(request):
             pizza = form.save()
             cart, created = Cart.objects.get_or_create(user=request.user)
 
-            # check if pizza already exists in cart (duplicate) then just increase the quantity
+            # add new pizza to the cart
+            # originally wanted to create a "quantity" feature but decided not to for now
+            # might add it in future
             new_item = CartItem.objects.create(cart=cart, pizza=pizza)
             new_item.save()
 
@@ -118,5 +120,4 @@ def order_confirmation(request, id):
         return redirect("/")
 
     order_items = order.order_items.all()
-    print(order_items)
     return render(request, "order_confirmation.html", {"order": order, "order_items": order_items})
