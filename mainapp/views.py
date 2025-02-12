@@ -3,9 +3,42 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import PizzaForm, CheckoutForm
-from .models import Cart, CartItem, OrderItem, Order
+from .models import Cart, CartItem, OrderItem, Order, Size, CrustType, Cheese, Topping
 from datetime import datetime
 from collections import defaultdict
+
+# POPULATE THE DATABASE
+def populate_default_data():
+    # Created this function to run once the app starts
+    # Populates the database with essential pizza data
+    Size.objects.get_or_create(name="Small")
+    Size.objects.get_or_create(name="Medium")
+    Size.objects.get_or_create(name="Large")
+    Size.objects.get_or_create(name="Extra Large")
+
+    CrustType.objects.get_or_create(name="Normal")
+    CrustType.objects.get_or_create(name="Thin")
+    CrustType.objects.get_or_create(name="Thick")
+    CrustType.objects.get_or_create(name="Gluten Free")
+
+    Cheese.objects.get_or_create(name="Mozzarella")
+    Cheese.objects.get_or_create(name="Cheddar")
+    Cheese.objects.get_or_create(name="Gouda")
+    Cheese.objects.get_or_create(name="Low Fat")
+    Cheese.objects.get_or_create(name="Vegan")
+
+    Topping.objects.get_or_create(name="Pepperoni")
+    Topping.objects.get_or_create(name="Chicken")
+    Topping.objects.get_or_create(name="Ham")
+    Topping.objects.get_or_create(name="Pineapple")
+    Topping.objects.get_or_create(name="Peppers")
+    Topping.objects.get_or_create(name="Mushrooms")
+    Topping.objects.get_or_create(name="Onions")
+    Topping.objects.get_or_create(name="Sweetcorn")
+    Topping.objects.get_or_create(name="Tuna")
+    Topping.objects.get_or_create(name="Bacon")
+
+populate_default_data()  # Run this once when the app starts
 
 # Create your views here.
 def index(request):
