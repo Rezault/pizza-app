@@ -1,0 +1,109 @@
+/* body */
+body {
+    background-color: #FFF8E1;
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+    opacity: 1;
+}
+
+/* page container */
+.page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* navbar */
+.navbar {
+    background-color: #D32F2F;
+    padding: 15px;
+}
+
+.navbar a {
+    font-weight: bold;
+    text-decoration: none;
+    margin-right: 15px;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+/* footer */
+footer {
+    background-color: #D32F2F;
+    margin-top: auto;
+    /* Pushes footer to the bottom when not enough content */
+}
+
+/* accordion */
+.accordion-item {
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background: white;
+    margin-bottom: 10px;
+}
+
+.accordion-button {
+    background-color: #D32F2F !important;
+    color: white !important;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: background-color 0.2s ease-out, transform 0.2s ease-out;
+}
+
+.accordion-button:hover {
+    background-color: #D32F2F !important;
+    color: white !important;
+    transform: scale(1.02);
+}
+
+/* create pizza */
+.create-pizza {
+    display: inline-block;
+    background-color: #D32F2F;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+/* page loader */
+#page-loader {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* hide loader after page finishes loading */
+body.loaded #page-loader {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* input focuses */
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: #D32F2F !important;
+    box-shadow: 0 0 4px rgba(211, 47, 47, 0.5);
+    transition: box-shadow 0.2s ease-out;
+}
+
+/* buttons */
+.btn {
+    transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+}
+
+.btn:hover {
+    transform: scale(1.03);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}

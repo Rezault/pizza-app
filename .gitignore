@@ -20,7 +20,6 @@ db.sqlite3
 # ignore static files (they should be generated, not stored in Git)
 staticfiles/
 media/
-static/
 
 # ignore compiled CSS (if using SASS or LESS)
 *.sass-cache
